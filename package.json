@@ -5,7 +5,7 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "run": "ts-node code/alfonsine.ts",
+    "run": "ts-node alfonsine.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

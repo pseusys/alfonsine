@@ -40,17 +40,18 @@ export function sun (d: number, p: number, a: number): Model {
     // verum motum (true ecliptic longitude) = media longitudo + equationum
     const L = Lm + Q
 
-    const Lc = Math.ceil(L);
+    const _L_ceil = Math.ceil(L)
+    const _minutes = Math.ceil((_L_ceil - L) * 60)
     return {
         longitude1: {
-            degrees: Lc,
-            minutes: Math.ceil((Lc - L) * 60)
+            degrees: _L_ceil,
+            minutes: _minutes
         },
         longitude2: {
-            degrees: Lc - Math.ceil(Lc / 30) * 30,
-            minutes: Math.ceil((Lc - L) * 60)
+            degrees: _L_ceil % 30,
+            minutes: _minutes
         },
-        sign: Zodiac.find(Math.ceil(Lc / 30) + 1),
+        sign: Zodiac.find(Math.ceil(_L_ceil / 30) + 1),
         latitude: {
             degrees: 0,
             minutes: 0

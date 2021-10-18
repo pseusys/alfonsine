@@ -1,8 +1,7 @@
-import { dierum } from './generics'
-import { precession_model } from './sphere'
-import { sun } from "./sun";
-import { Epoch, Time, Difference } from './types'
-
+import { dierum } from './code/generics'
+import { precession_model } from './code/sphere'
+import { sun } from "./code/sun";
+import { Epoch, Time, Difference } from './code/types'
 
 
 function alfonsine () {
