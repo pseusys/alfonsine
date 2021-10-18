@@ -1,5 +1,19 @@
 Attribute VB_Name = "alfonsine"
-Private Function RunScript(command As String) As String
+Private Sub CSV_Import()
+Dim ws As Worksheet, strFile As String
+
+Set ws = ActiveWorkbook.Sheets("PO Data") 'set to current worksheet name
+
+strFile = Application.GetOpenFilename("Text Files (*.csv),*.csv", , "Please select text file...")
+
+With ws.QueryTables.Add(Connection:="TEXT;" & strFile, Destination:=ws.Range("A1"))
+     .TextFileParseType = xlDelimited
+     .TextFileCommaDelimiter = True
+     .Refresh
+End With
+End Sub
+
+Private Sub RunScript(command As String)
     'run command
     Dim output As Object: Set output = CreateObject("WScript.Shell").exec(command).StdOut
 
@@ -14,8 +28,8 @@ Private Function RunScript(command As String) As String
 
     RunScript = str
 
-End Function
+End Sub
 
 Sub Alfonsine()
-    MsgBox RunScript("cscript example.js")
+    RunScript "cscript example.js"
 End Sub
