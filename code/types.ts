@@ -47,8 +47,8 @@ export interface Difference {
 }
 
 export interface Model {
-    longitude1: Radial
-    longitude2: Radial
+    astronomic: Radial
+    astrologic: Radial
     sign: Zodiac
     latitude: Radial
     north: boolean

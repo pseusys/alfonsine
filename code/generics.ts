@@ -11,7 +11,6 @@ export function acc (float: number, accuracy: number) {
     return parseFloat(float.toFixed(accuracy))
 }
 
-// FIXME: here?
 export function JDN(time: Time): number {
     const a = Math.ceil((14 - time.month) / 12)
     const y = time.year + 4800 - a

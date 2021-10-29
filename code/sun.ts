@@ -14,10 +14,10 @@ export function sun (d: number, p: number, a: number): Model {
     const sun_data = JSON.parse(fs.readFileSync('./data/sun.json').toString());
 
     // radix motus (mean longitude at epoch)
-    const L0 = 278.35 // TODO: implement calculations!
+    const L0 = sun_data['l0']
 
     // media motus (rate of motion in mean longitude)
-    const n = 0.99 // TODO: implement calculations!
+    const n = sun_data['n']
 
     // media motum (increment of longitude) = media motus * dierum
     const Ld = (n * d) % 360
@@ -26,7 +26,7 @@ export function sun (d: number, p: number, a: number): Model {
     const Lm = (L0 + Ld) % 360
 
     // radix augi (longitude solar apogee at epoch)
-    const La0 = 71.42 // TODO: implement calculations!
+    const La0 = sun_data['la0']
 
     // augi (longitude solar apogee) = radix augi + motum augi et trepidationis
     const La = (La0 + p) % 360
@@ -40,18 +40,18 @@ export function sun (d: number, p: number, a: number): Model {
     // verum motum (true ecliptic longitude) = media longitudo + equationum
     const L = Lm + Q
 
-    const _L_ceil = Math.ceil(L)
-    const _minutes = Math.ceil((_L_ceil - L) * 60)
+    const _L_floor = Math.floor(L)
+    const _minutes = Math.round((L - _L_floor) * 60)
     return {
-        longitude1: {
-            degrees: _L_ceil,
+        astronomic: {
+            degrees: _L_floor,
             minutes: _minutes
         },
-        longitude2: {
-            degrees: _L_ceil % 30,
+        astrologic: {
+            degrees: _L_floor % 30,
             minutes: _minutes
         },
-        sign: Zodiac.find(Math.ceil(_L_ceil / 30) + 1),
+        sign: Zodiac.find(Math.floor(_L_floor / 30)),
         latitude: {
             degrees: 0,
             minutes: 0
