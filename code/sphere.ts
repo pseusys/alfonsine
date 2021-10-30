@@ -4,6 +4,11 @@ import { acc, interpolate } from "./generics";
 import { Precession } from "./types";
 
 
+/**
+ * @param precession precession type
+ * @param d time(t-t0)
+ * @param a accuracy
+ */
 export function precession_model(precession: Precession, d: number, a: number): number {
     switch (precession) {
         case Precession.PTOLEMY:

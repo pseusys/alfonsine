@@ -6,12 +6,16 @@
   "private": true,
   "scripts": {
     "run": "ts-node alfonsine.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --require ts-node/register --recursive --extension ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
+    "@types/chai": "^4.2.22",
+    "chai": "^4.3.4",
+    "@types/mocha": "^9.0.0",
+    "mocha": "^9.1.3",
     "ts-node": "^10.3.0"
   }
 }
