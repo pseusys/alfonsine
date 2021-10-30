@@ -6,7 +6,7 @@ import { Precession } from "./types";
 
 /**
  * @param precession precession type
- * @param d time(t-t0)
+ * @param d time (t-t0)
  * @param a accuracy
  */
 export function precession_model(precession: Precession, d: number, a: number): number {
@@ -42,7 +42,7 @@ export function precession_model(precession: Precession, d: number, a: number): 
             // aequationum motus accessus at recessus sphaere stellate (equalization of the eighth sphere)
             const p2 = interpolate(sphere_data['EAR'], lm)
 
-            // verum motum accessus et recessus (TODO: add english description)
+            // verum motum accessus et recessus (true ecliptic longitude)
             const p3 = p2 - EME
 
             // Trepidation precession: linear 360 degrees per 49000 years + 9 degrees per 7000 years

@@ -1,12 +1,13 @@
 import fs from "fs";
 import { expect } from "chai"
+
 import { media_longitudo } from "../code/caput";
 
 
 describe("Caput draconis test", () => {
-    const d = 537698.1027777780000000
-    const delta = 0.00000000009
+    const d = 537698.102777777777778
 
+    const delta = 0.00000000009
     const caput_data = JSON.parse(fs.readFileSync('./data/caput.json').toString());
 
     const media_motum = 33.4066873075244000

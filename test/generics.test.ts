@@ -1,4 +1,5 @@
 import { expect } from "chai"
+
 import { acc, day_equation, dierum, interpolate } from "../code/generics";
 import { Difference, Epoch, Time } from "../code/types";
 
@@ -37,13 +38,13 @@ describe("Generics test", () => {
         });
     });
 
-    const d = 537698.1027777778
+    const d = 537698.102777777777778
     describe("Should calculate JDN (julian day number) regarding geolocation and era correctly", () => {
         const date: Time = { year: 1473, month: 2, date: 19, hour: 4, minute: 48 }
         const diff: Difference = { hours: 2, minutes: 20, east: true }
         const era: Epoch = Epoch.CHRIST
 
-        it(`JDN ${date} ${diff} ${era} should be equal to ${d}`, () => {
+        it(`JDN should be equal to ${d}`, () => {
             const res = dierum(date, diff, era)
             expect(res).to.be.approximately(d, delta)
         });

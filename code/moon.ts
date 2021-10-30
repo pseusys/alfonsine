@@ -8,10 +8,9 @@ import { media_longitudo as caput_longitudo } from "./caput";
 
 /**
  * @param d time(t-t0)
- * @param p motum augi et trepidationis
  * @param a accuracy
  */
-export function moon (d: number, p: number, a: number): Model {
+export function moon (d: number, a: number): Model {
     const moon_data = JSON.parse(fs.readFileSync('./data/moon.json').toString());
 
     // radix motus (mean longitude at epoch)
@@ -41,7 +40,7 @@ export function moon (d: number, p: number, a: number): Model {
     // radix argumentis (mean anomaly at epoh)
     const A0 = moon_data['a0']
 
-    // medij argumentis (rate of motion in mean anomaly) // TODO: add calculation
+    // medij argumentis (rate of motion in mean anomaly)
     const m = moon_data['m']
 
     // media motum argumentis (increment of anomaly)
@@ -71,8 +70,7 @@ export function moon (d: number, p: number, a: number): Model {
     // verum locum Lune (true ecliptic longitude) = media longitudo Lune + equatio secundo examinata
     const L = (LmM + c) % 360
 
-    const caput = caput_longitudo(d);
-    const omega = (L - caput + 360) % 360
+    const omega = (L - caput_longitudo(d) + 360) % 360
     const beta = interpolate(moon_data['b'], omega)
 
     const _L_floor = Math.floor(L)

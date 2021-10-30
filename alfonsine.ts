@@ -16,8 +16,9 @@ function alfonsine () {
     const d = dierum(date, diff, era)
     const p = precession_model(precession, d, accuracy)
 
-    const s = moon(d, p, accuracy)
-    console.log(s)
+    const s = sun(d, p, accuracy)
+    const m = moon(d, accuracy)
+    console.log(s, m)
 }
 
 alfonsine();
