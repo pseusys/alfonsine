@@ -1,7 +1,7 @@
-import fs from 'fs';
-
-import { acc, interpolate } from "./generics";
 import { Precession } from "./types";
+import { acc, interpolate } from "./utils";
+
+import * as data from "../data/sphere.json"
 
 
 /**
@@ -16,16 +16,14 @@ export function precession_model(precession: Precession, d: number, a: number): 
             return d / 36500
 
         case Precession.TREPIDATION:
-            const sphere_data = JSON.parse(fs.readFileSync('./data/sphere.json').toString());
-
             // radix motus octaue sphere (mean longitude at epoch)
-            const l0 = sphere_data['l0']
+            const l0 = data['l0']
 
             // medij augium et stellarum fixarum (rate of linear motion per 49000 years)
-            const n = sphere_data['n']
+            const n = data['n']
 
             // medij motus accesius at recessus octaue sphere (rate of trepidation per 7000 years)
-            const n1 = sphere_data['n1']
+            const n1 = data['n1']
 
             // media motum augi (linear displacement of apogees)
             const p0 = n * d
@@ -34,13 +32,13 @@ export function precession_model(precession: Precession, d: number, a: number): 
             const p1 = n1 * d
 
             // eius motus est (position on the trepidation sine wave)
-            const EME = sphere_data['eme']
+            const EME = data['eme']
 
             // motum octaue sphere (displacement of the eighth sphere)
             const lm = acc((l0 + p1) % 360, a)
 
             // aequationum motus accessus at recessus sphaere stellate (equalization of the eighth sphere)
-            const p2 = interpolate(sphere_data['EAR'], lm)
+            const p2 = interpolate(data['q_lm'], lm)
 
             // verum motum accessus et recessus (true ecliptic longitude)
             const p3 = p2 - EME

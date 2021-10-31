@@ -1,8 +1,10 @@
-import { dierum } from './code/generics'
-import { precession_model } from './code/sphere'
-import { Epoch, Time, Difference, Precession } from './code/types'
-import { moon } from "./code/moon";
-import { sun } from "./code/sun";
+import { Epoch, Time, Difference, Precession } from "./code/types"
+import { dierum } from "./code/utils"
+
+import { precession_model } from "./code/sphere"
+import { moon } from "./code/moon"
+import { sun } from "./code/sun"
+import { mercury } from "./code/mercury";
 
 
 function alfonsine () {
@@ -16,14 +18,15 @@ function alfonsine () {
     const d = dierum(date, diff, era)
     const p = precession_model(precession, d, accuracy)
 
-    const s = sun(d, p, accuracy)
-    const m = moon(d, accuracy)
-    console.log(s, m)
+    const SUN = sun(d, p, accuracy)
+    const MOON = moon(d, accuracy)
+    const MERCURY = mercury(d, p, accuracy)
+    console.log(MERCURY)
 }
 
 alfonsine();
 
 /*
 const arr = ""
-console.log(arr.split('\n').map((val: string) => { return val.split('\t')[0].replace(',', '.') }).reduce((prev: string, curr: string) => { return `${prev}, ${curr}` }, ""))
+console.log(arr.split('\n').map((val: string) => { return val.split('\t')[2].replace(',', '.') }).reduce((prev: string, curr: string) => { return `${prev}, ${curr}` }, ""))
 */

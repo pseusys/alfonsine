@@ -1,9 +1,11 @@
-import fs from "fs";
 import { expect } from "chai";
 
-import { acc, interpolate } from "../code/generics";
-import { media_longitudo as sun_longitudo } from "../code/sun";
 import { Zodiac } from "../code/types";
+import { acc, interpolate } from "../code/utils";
+
+import { media_longitudo as sun_longitudo, sun } from "../code/sun";
+
+import * as data from "../data/sun.json"
 
 
 describe("Sun test", () => {
@@ -12,12 +14,11 @@ describe("Sun test", () => {
     const a = 10
 
     const delta = 0.00000000009
-    const sun_data = JSON.parse(fs.readFileSync('./data/sun.json').toString());
 
     const media_motum = 60.1983162905
     describe("Should calculate media motum (increment of longitude) correctly", () => {
         it(`Increment of longitude should be equal to ${media_motum}`, () => {
-            const res = (sun_data['n'] * d) % 360
+            const res = (data['n'] * d) % 360
             expect(res).to.be.approximately(media_motum, delta)
         });
     });
@@ -25,7 +26,7 @@ describe("Sun test", () => {
     const media_longitudo = 338.54845733988
     describe("Should calculate media longitudo (mean longitude) correctly", () => {
         it(`Mean longitude should be equal to ${media_longitudo}`, () => {
-            const res = (sun_data['l0'] + media_motum) % 360
+            const res = (data['l0'] + media_motum) % 360
             expect(res).to.be.approximately(media_longitudo, delta)
         });
     });
@@ -40,7 +41,7 @@ describe("Sun test", () => {
     const augi = 90.80285297919
     describe("Should calculate augi (longitude solar apogee) correctly", () => {
         it(`Longitude solar apogee should be equal to ${augi}`, () => {
-            const res = (sun_data['la0'] + p) % 360
+            const res = (data['la0'] + p) % 360
             expect(res).to.be.approximately(augi, delta)
         });
     });
@@ -56,7 +57,7 @@ describe("Sun test", () => {
     const equationum = 2.03993650743
     describe("Should calculate equationum (equation of center) correctly", () => {
         it(`Equation of center should be equal to ${equationum}`, () => {
-            const res = interpolate(sun_data['f'], argumentum)
+            const res = interpolate(data['f_a'], argumentum)
             expect(res).to.be.approximately(equationum, delta)
         });
     });
@@ -85,7 +86,7 @@ describe("Sun test", () => {
         },
         north: undefined
     }
-    describe("Should function result correctly", () => {
+    describe("Should calculate function result correctly", () => {
         const _L_floor = Math.floor(verum_motum)
         const _minutes = Math.round((verum_motum - _L_floor) * 60)
         const res = {
@@ -106,6 +107,14 @@ describe("Sun test", () => {
         }
 
         it(`Function result should be equal to ${result}`, () => {
+            expect(res).to.be.deep.eq(result)
+        });
+    });
+
+    describe("Should execute function correctly", () => {
+        const res = sun(d, p, a)
+
+        it(`Function execution result should be equal to ${result}`, () => {
             expect(res).to.be.deep.eq(result)
         });
     });

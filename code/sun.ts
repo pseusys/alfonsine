@@ -1,7 +1,7 @@
-import fs from "fs";
-
-import { acc, interpolate } from "./generics";
 import { Model, Zodiac } from "./types";
+import { acc, interpolate } from "./utils";
+
+import * as data from "../data/sun.json"
 
 
 /**
@@ -10,13 +10,11 @@ import { Model, Zodiac } from "./types";
  * @param a accuracy
  */
 export function sun (d: number, p: number, a: number): Model {
-    const sun_data = JSON.parse(fs.readFileSync('./data/sun.json').toString());
-
     // media longitudo (mean longitude)
     const Lm = media_longitudo(d)
 
     // radix augi (longitude solar apogee at epoch)
-    const La0 = sun_data['la0']
+    const La0 = data['la0']
 
     // augi (longitude solar apogee) = radix augi + motum augi et trepidationis
     const La = (La0 + p) % 360
@@ -25,10 +23,12 @@ export function sun (d: number, p: number, a: number): Model {
     const A = acc((Lm - La + 360) % 360, a)
 
     // equationum (equation of center) = f(argumentum)
-    const Q = interpolate(sun_data['f'], A)
+    const Q = interpolate(data['f_a'], A)
 
     // verum motum (true ecliptic longitude) = media longitudo + equationum
     const L = Lm + Q
+
+    // Building Model:
 
     const _L_floor = Math.floor(L)
     const _minutes = Math.round((L - _L_floor) * 60)
@@ -51,13 +51,11 @@ export function sun (d: number, p: number, a: number): Model {
 }
 
 export function media_longitudo (d: number): number {
-    const sun_data = JSON.parse(fs.readFileSync('./data/sun.json').toString());
-
     // radix motus (mean longitude at epoch)
-    const L0 = sun_data['l0']
+    const L0 = data['l0']
 
     // media motus (rate of motion in mean longitude)
-    const n = sun_data['n']
+    const n = data['n']
 
     // media motum (increment of longitude) = media motus * dierum
     const Ld = (n * d) % 360

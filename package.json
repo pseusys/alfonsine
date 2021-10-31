@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "run": "ts-node alfonsine.ts",
-    "test": "mocha --require ts-node/register --recursive --extension ts"
+    "test": "mocha --require ts-node/register --recursive --extension test.ts"
   },
   "keywords": [],
   "author": "",

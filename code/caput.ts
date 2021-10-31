@@ -1,13 +1,12 @@
-import fs from "fs";
+import * as data from "../data/caput.json"
+
 
 export function media_longitudo (d: number): number {
-    const caput_data = JSON.parse(fs.readFileSync('./data/caput.json').toString());
-
     // radix motus (mean longitude at epoch)
-    const L0 = caput_data['l0']
+    const L0 = data['l0']
 
     // media motus (rate of motion in mean longitude)
-    const n = caput_data['n']
+    const n = data['n']
 
     // media motum (increment of longitude) = media motus * dierum
     const Ld = (n * d) % 360

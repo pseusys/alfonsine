@@ -1,10 +1,14 @@
-import fs from "fs";
 import { expect } from "chai"
 
-import { acc, day_equation, interpolate } from "../code/generics";
+import { Zodiac } from "../code/types";
+import { acc, interpolate } from "../code/utils";
+
+import { day_equation } from "../code/generics";
 import { media_longitudo as sun_longitudo } from "../code/sun";
 import { media_longitudo as caput_longitudo } from "../code/caput";
-import { Zodiac } from "../code/types";
+import { moon } from "../code/moon";
+
+import * as data from "../data/moon.json"
 
 
 describe("Moon test", () => {
@@ -12,7 +16,6 @@ describe("Moon test", () => {
     const a = 10
 
     const delta = 0.00000000009
-    const moon_data = JSON.parse(fs.readFileSync('./data/moon.json').toString());
 
     const dierum = 537698.0753940311
     describe("Should calculate dierum (time) correctly", () => {
@@ -25,7 +28,7 @@ describe("Moon test", () => {
     const media_motum = 122.0655367011
     describe("Should calculate media motum (increment of longitude) correctly", () => {
         it(`Increment of longitude should be equal to ${media_motum}`, () => {
-            const res = (moon_data['n'] * dierum) % 360
+            const res = (data['n'] * dierum) % 360
             expect(res).to.be.approximately(media_motum, delta)
         });
     });
@@ -33,7 +36,7 @@ describe("Moon test", () => {
     const media_longitudo_Lune = 244.8461694171
     describe("Should calculate media longitudo Lune (mean longitude of Moon) correctly", () => {
         it(`Mean longitude of Moon should be equal to ${media_longitudo_Lune}`, () => {
-            const res = (moon_data['l0'] + media_motum) % 360
+            const res = (data['l0'] + media_motum) % 360
             expect(res).to.be.approximately(media_longitudo_Lune, delta)
         });
     });
@@ -57,7 +60,7 @@ describe("Moon test", () => {
     const media_motum_argumentis = 339.14623543806
     describe("Should calculate media motum argumentis (increment of anomaly) correctly", () => {
         it(`Increment of anomaly should be equal to ${media_motum_argumentis}`, () => {
-            const res = (moon_data['m'] * dierum) % 360
+            const res = (data['m'] * dierum) % 360
             expect(res).to.be.approximately(media_motum_argumentis, delta)
         });
     });
@@ -65,7 +68,7 @@ describe("Moon test", () => {
     const media_argumentum = 178.150269157196
     describe("Should calculate media argumentum (mean anomaly) correctly", () => {
         it(`Media argumentum should be equal to ${media_argumentum}`, () => {
-            const res = (moon_data['a0'] + media_motum_argumentis) % 360
+            const res = (data['a0'] + media_motum_argumentis) % 360
             expect(res).to.be.approximately(media_argumentum, delta)
         });
     });
@@ -73,7 +76,7 @@ describe("Moon test", () => {
     const equatio_centris = 2.6681919485
     describe("Should calculate equatio centris (equalization of the mean anomaly) correctly", () => {
         it(`Equatio centris should be equal to ${equatio_centris}`, () => {
-            const res = interpolate(moon_data['c3'], elongationum_dupla)
+            const res = interpolate(data['c3_2d'], elongationum_dupla)
             expect(res).to.be.approximately(equatio_centris, delta)
         });
     });
@@ -89,7 +92,7 @@ describe("Moon test", () => {
     const equatio_primo_examinata = 0.0772991045
     describe("Should calculate equatio primo examinata (equalization of the excentricity anomaly) correctly", () => {
         it(`Equatio primo examinata should be equal to ${equatio_primo_examinata}`, () => {
-            const res = interpolate(moon_data['c4'], argumentum)
+            const res = interpolate(data['c4_a'], argumentum)
             expect(res).to.be.approximately(equatio_primo_examinata, delta)
         });
     });
@@ -97,7 +100,7 @@ describe("Moon test", () => {
     const diuersitas_diametry = 0.05456407379
     describe("Should calculate diuersitas diametry (excess epicyclic anomaly) correctly", () => {
         it(`Diuersitas diametry should be equal to ${diuersitas_diametry}`, () => {
-            const res = interpolate(moon_data['c5'], argumentum)
+            const res = interpolate(data['c5_a'], argumentum)
             expect(res).to.be.approximately(diuersitas_diametry, delta)
         });
     });
@@ -105,7 +108,7 @@ describe("Moon test", () => {
     const minuta_proportionalis = 60
     describe("Should calculate minuta proportionalis (proportionality coefficient) correctly", () => {
         it(`Minuta proportionalis should be equal to ${minuta_proportionalis}`, () => {
-            const res = interpolate(moon_data['c6'], argumentum)
+            const res = interpolate(data['c6_2d'], argumentum)
             expect(res).to.be.approximately(minuta_proportionalis, delta)
         });
     });
@@ -127,17 +130,17 @@ describe("Moon test", () => {
     });
 
     const omega = 10.3160208288
-    describe("Should calculate omega correctly", () => {
-        it(`Omega should be equal to ${omega}`, () => {
+    describe("Should calculate latitude argument correctly", () => {
+        it(`Latitude argument should be equal to ${omega}`, () => {
             const res = (verum_locum_Lune - caput_longitudo(d) + 360) % 360
             expect(res).to.be.approximately(omega, delta)
         });
     });
 
     const beta = 0.8939817820
-    describe("Should calculate beta correctly", () => {
-        it(`Beta should be equal to ${beta}`, () => {
-            const res = interpolate(moon_data['b'], omega)
+    describe("Should calculate latitude correctly", () => {
+        it(`Latitude should be equal to ${beta}`, () => {
+            const res = interpolate(data['b'], omega)
             expect(res).to.be.approximately(beta, delta)
         });
     });
@@ -158,7 +161,7 @@ describe("Moon test", () => {
         },
         north: true
     }
-    describe("Should function result correctly", () => {
+    describe("Should calculate function result correctly", () => {
         const _L_floor = Math.floor(verum_locum_Lune)
         const _minutes = Math.floor((verum_locum_Lune - _L_floor) * 60)
         const _abs_beta = Math.abs(beta)
@@ -180,6 +183,14 @@ describe("Moon test", () => {
         }
 
         it(`Function result should be equal to ${result}`, () => {
+            expect(res).to.be.deep.eq(result)
+        });
+    });
+
+    describe("Should execute function correctly", () => {
+        const res = moon(d, a)
+
+        it(`Function execution result should be equal to ${result}`, () => {
             expect(res).to.be.deep.eq(result)
         });
     });
