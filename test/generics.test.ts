@@ -23,4 +23,12 @@ describe("Generics test", () => {
             expect(res).to.be.approximately(d_high, delta)
         });
     });
+
+    describe("Should build model correctly", () => {
+
+    });
+
+    describe("Should calculate longitude for Mercury and Venus correctly", () => {
+
+    });
 });

@@ -5,7 +5,7 @@ import { media_longitudo } from "../code/caput";
 import * as data from "../data/caput.json"
 
 
-describe("Caput draconis test", () => {
+describe("Caput Draconis test", () => {
     const d = 537698.102777777777778
 
     const delta = 0.00000000009

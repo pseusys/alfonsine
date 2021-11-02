@@ -1,26 +1,27 @@
-import { Model, Zodiac } from "./types";
+import { Model } from "./types";
 import { acc, interpolate } from "./utils";
 
 import * as data from "../data/sun.json"
+import { build_model } from "./generics";
 
 
 /**
- * @param d time(t-t0)
- * @param p motum augi et trepidationis
- * @param a accuracy
+ * @param day time(t-t0)
+ * @param precession motum augi et trepidationis
+ * @param accuracy accuracy
  */
-export function sun (d: number, p: number, a: number): Model {
+export function sun (day: number, precession: number, accuracy: number): Model {
     // media longitudo (mean longitude)
-    const Lm = media_longitudo(d)
+    const Lm = media_longitudo(day)
 
     // radix augi (longitude solar apogee at epoch)
     const La0 = data['la0']
 
     // augi (longitude solar apogee) = radix augi + motum augi et trepidationis
-    const La = (La0 + p) % 360
+    const La = (La0 + precession) % 360
 
     // argumentum (true anomaly) = media longitudo - augi
-    const A = acc((Lm - La + 360) % 360, a)
+    const A = acc((Lm - La + 360) % 360, accuracy)
 
     // equationum (equation of center) = f(argumentum)
     const Q = interpolate(data['f_a'], A)
@@ -28,29 +29,10 @@ export function sun (d: number, p: number, a: number): Model {
     // verum motum (true ecliptic longitude) = media longitudo + equationum
     const L = Lm + Q
 
-    // Building Model:
-
-    const _L_floor = Math.floor(L)
-    const _minutes = Math.round((L - _L_floor) * 60)
-    return {
-        astronomic: {
-            degrees: _L_floor,
-            minutes: _minutes
-        },
-        astrologic: {
-            degrees: _L_floor % 30,
-            minutes: _minutes
-        },
-        sign: Zodiac.find(Math.floor(_L_floor / 30)),
-        latitude: {
-            degrees: 0,
-            minutes: 0
-        },
-        north: undefined
-    }
+    return build_model(L, null)
 }
 
-export function media_longitudo (d: number): number {
+export function media_longitudo (day: number): number {
     // radix motus (mean longitude at epoch)
     const L0 = data['l0']
 
@@ -58,7 +40,7 @@ export function media_longitudo (d: number): number {
     const n = data['n']
 
     // media motum (increment of longitude) = media motus * dierum
-    const Ld = (n * d) % 360
+    const Ld = (n * day) % 360
 
     // media longitudo (mean longitude) = radix motus + media motum
     return (L0 + Ld) % 360

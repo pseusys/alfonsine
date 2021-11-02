@@ -6,14 +6,14 @@ import * as data from "../data/sphere.json"
 
 /**
  * @param precession precession type
- * @param d time (t-t0)
- * @param a accuracy
+ * @param day time (t-t0)
+ * @param accuracy accuracy
  */
-export function precession_model(precession: Precession, d: number, a: number): number {
+export function precession_model(precession: Precession, day: number, accuracy: number): number {
     switch (precession) {
         case Precession.PTOLEMY:
             // Ptolemy precession: 1 degree per century
-            return d / 36500
+            return day / 36500
 
         case Precession.TREPIDATION:
             // radix motus octaue sphere (mean longitude at epoch)
@@ -26,16 +26,16 @@ export function precession_model(precession: Precession, d: number, a: number): 
             const n1 = data['n1']
 
             // media motum augi (linear displacement of apogees)
-            const p0 = n * d
+            const p0 = n * day
 
             // media motum octaue sphere (displacement due to trepidation)
-            const p1 = n1 * d
+            const p1 = n1 * day
 
             // eius motus est (position on the trepidation sine wave)
             const EME = data['eme']
 
             // motum octaue sphere (displacement of the eighth sphere)
-            const lm = acc((l0 + p1) % 360, a)
+            const lm = acc((l0 + p1) % 360, accuracy)
 
             // aequationum motus accessus at recessus sphaere stellate (equalization of the eighth sphere)
             const p2 = interpolate(data['q_lm'], lm)
@@ -48,6 +48,6 @@ export function precession_model(precession: Precession, d: number, a: number): 
 
         case Precession.TRUE:
             // Close to true precession: 1 degree per 72 years
-            return d / (72 * 365.25)
+            return day / (72 * 365.25)
     }
 }

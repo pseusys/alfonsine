@@ -4,7 +4,7 @@ import { Difference, Epoch, Time } from "../code/types";
 import { acc, dierum, interpolate } from "../code/utils";
 
 
-describe("Generics test", () => {
+describe("Utils test", () => {
     const delta = 0.00000000009
 
     describe("Should interpolate a simple linear equation correctly", () => {

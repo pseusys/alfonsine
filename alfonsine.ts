@@ -5,6 +5,7 @@ import { precession_model } from "./code/sphere"
 import { moon } from "./code/moon"
 import { sun } from "./code/sun"
 import { mercury } from "./code/mercury";
+import { venus } from "./code/venus";
 
 
 function alfonsine () {
@@ -21,7 +22,8 @@ function alfonsine () {
     const SUN = sun(d, p, accuracy)
     const MOON = moon(d, accuracy)
     const MERCURY = mercury(d, p, accuracy)
-    console.log(MERCURY)
+    const VENUS = venus(d, p, accuracy)
+    console.log(VENUS)
 }
 
 alfonsine();
