@@ -161,36 +161,10 @@ describe("Moon test", () => {
         },
         north: true
     }
-    describe("Should calculate function result correctly", () => {
-        const _L_floor = Math.floor(verum_locum_Lune)
-        const _minutes = Math.floor((verum_locum_Lune - _L_floor) * 60)
-        const _abs_beta = Math.abs(beta)
-        const res = {
-            astronomic: {
-                degrees: _L_floor,
-                minutes: _minutes
-            },
-            astrologic: {
-                degrees: _L_floor % 30,
-                minutes: _minutes
-            },
-            sign: Zodiac.find(Math.floor(_L_floor / 30)),
-            latitude: {
-                degrees: Math.floor(_abs_beta),
-                minutes: Math.floor((_abs_beta - Math.floor(_abs_beta)) * 60)
-            },
-            north: beta > 0
-        }
-
-        it(`Function result should be equal to ${result}`, () => {
-            expect(res).to.be.deep.eq(result)
-        });
-    });
-
     describe("Should execute function correctly", () => {
         const res = moon(d, a)
 
-        it(`Function execution result should be equal to ${result}`, () => {
+        it(`Function execution result should be equal to ${JSON.stringify(result)}`, () => {
             expect(res).to.be.deep.eq(result)
         });
     });

@@ -17,7 +17,7 @@ export function day_equation (day: number, accuracy: number) {
 
 export function build_model (verum_motum: number, latitude: number | null): Model {
     const _L_floor = Math.floor(verum_motum)
-    const _minutes = Math.round((verum_motum - _L_floor) * 60)
+    const _minutes = Math.floor((verum_motum - _L_floor) * 60)
     const _abs_lat = Math.abs(latitude)
     return {
         astronomic: {

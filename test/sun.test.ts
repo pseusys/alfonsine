@@ -86,35 +86,10 @@ describe("Sun test", () => {
         },
         north: undefined
     }
-    describe("Should calculate function result correctly", () => {
-        const _L_floor = Math.floor(verum_motum)
-        const _minutes = Math.round((verum_motum - _L_floor) * 60)
-        const res = {
-            astronomic: {
-                degrees: _L_floor,
-                minutes: _minutes
-            },
-            astrologic: {
-                degrees: _L_floor % 30,
-                minutes: _minutes
-            },
-            sign: Zodiac.find(Math.floor(_L_floor / 30)),
-            latitude: {
-                degrees: 0,
-                minutes: 0
-            },
-            north: undefined
-        }
-
-        it(`Function result should be equal to ${result}`, () => {
-            expect(res).to.be.deep.eq(result)
-        });
-    });
-
     describe("Should execute function correctly", () => {
         const res = sun(d, p, a)
 
-        it(`Function execution result should be equal to ${result}`, () => {
+        it(`Function execution result should be equal to ${JSON.stringify(result)}`, () => {
             expect(res).to.be.deep.eq(result)
         });
     });
