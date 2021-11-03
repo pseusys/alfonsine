@@ -1,6 +1,6 @@
 import { expect } from "chai"
 
-import { Difference, Epoch, Time } from "../code/types";
+import { Difference, Epoch } from "../code/types";
 import { acc, dierum, interpolate } from "../code/utils";
 
 
@@ -40,7 +40,7 @@ describe("Utils test", () => {
 
     const d = 537698.102777777777778
     describe("Should calculate JDN (julian day number) regarding geolocation and era correctly", () => {
-        const date: Time = { year: 1473, month: 2, date: 19, hour: 4, minute: 48 }
+        const date: Date = new Date(1473, 2, 19, 4, 48)
         const diff: Difference = { hours: 2, minutes: 20, east: true }
         const era: Epoch = Epoch.CHRIST
 
