@@ -23,14 +23,14 @@ const epoch = document.getElementById("epoch") as HTMLInputElement
 const prec = document.getElementById("prec") as HTMLInputElement
 
 
-function display (date_time: Date, diff: Date, east: boolean, acc: boolean, epoch: number, prec: string) {
+function display (date_time: Date, diff_h: number, diff_m: number, east: boolean, acc: boolean, epoch: number, prec: string) {
     if (!form.checkValidity()) {
         form.reportValidity()
         return
     }
 
     const accuracy = acc ? 10 : 0
-    const difference: Difference = { hours: diff.getHours(), minutes: diff.getMinutes(), east: east }
+    const difference: Difference = { hours: diff_h, minutes: diff_m, east: east }
     const days = dierum(date_time, difference, Epoch.find(epoch))
     const precession = precession_model(Precession[prec], days, accuracy)
 
@@ -51,12 +51,12 @@ function display (date_time: Date, diff: Date, east: boolean, acc: boolean, epoc
         document.getElementById(`sign_${body}`).textContent = bodies[body].sign
         document.getElementById(`latitude_degrees_${body}`).textContent = bodies[body].latitude.degrees
         document.getElementById(`latitude_minutes_${body}`).textContent = bodies[body].latitude.minutes
-        document.getElementById(`n_s_${body}`).textContent = bodies[body].north
+        document.getElementById(`n_s_${body}`).textContent = bodies[body].north ? 'N' : 'S'
     }
 }
 
 
 input.onclick = () => {
     const split = diff.value.split(':')
-    display(new Date(date.value), new Date(Number(split[0]), Number(split[1])), east.checked, acc.checked, Number(epoch.value), prec.value)
+    display(new Date(date.value), Number(split[0]), Number(split[1]), east.checked, acc.checked, Number(epoch.value), prec.value)
 };

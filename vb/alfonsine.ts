@@ -12,7 +12,7 @@ import { saturn } from "../code/saturn";
 
 
 function alfonsine () {
-    const date: Date = new Date(1473, 2, 19, 4, 48)
+    const date: Date = new Date(1473, 1, 19, 4, 48)
     const era: Epoch = Epoch.CHRIST
     const diff: Difference = { hours: 2, minutes: 20, east: true }
     const accuracy = 5

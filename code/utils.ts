@@ -12,9 +12,9 @@ export function acc (float: number, accuracy: number) {
 }
 
 function JDN(time: Date): number {
-    const a = Math.ceil((14 - time.getMonth()) / 12)
+    const a = Math.ceil((14 - (time.getMonth() + 1)) / 12)
     const y = time.getFullYear() + 4800 - a
-    const m = time.getMonth() + 12 * a - 3
+    const m = (time.getMonth() + 1) + 12 * a - 3
     return time.getDate() + Math.ceil((153 * m + 2) / 5) + 365 * y + Math.ceil(y / 4) - 32083
 }
 
