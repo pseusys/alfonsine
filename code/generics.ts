@@ -6,7 +6,7 @@ import { media_longitudo } from "./sun";
 import * as data from "../data/generics.json"
 
 
-export function day_equation (day: number, accuracy: number) {
+export function day_equation (day: number, accuracy: number): number {
     // media longitudo Solis (mean longitude of Sun)
     const Lm = acc(media_longitudo(day), accuracy)
 
@@ -38,13 +38,16 @@ export function build_model (verum_motum: number, latitude: number | null): Mode
 }
 
 
+type Planet = { equatum_centrum: number, equatum_argumentum: number, verum_motum: number }
+
 /**
  * @param data planet data
  * @param day time (t-t0)
  * @param precession verum motum continuo et verum motum accessus et recessus
  * @param accuracy accuracy
+ * @param proxima is proxima planet (Mercury or Venus) or remota (Mars, Jupiter, Saturn)
  */
-export function proxima (data: any, day: number, precession: number, accuracy: number) {
+export function planeta (data: any, day: number, precession: number, accuracy: number, proxima: boolean): Planet {
     // radix motus (mean longitude at epoch)
     const L0 = data['l0']
 
@@ -66,17 +69,28 @@ export function proxima (data: any, day: number, precession: number, accuracy: n
     // centro medio (mean eccentric anomaly) = media longitudo - augi
     const k = (Lm - La + 360) % 360
 
-    // radix argumentis (mean epicyclic anomaly at epoch)
-    const A0 = data['a0']
+    // argumento medio (mean epicyclic anomaly)
+    let Am: number
 
-    // medij argumentis (rate of motion in mean anomaly)
-    const m = data['m']
+    if (proxima) {
+        // radix argumentis (mean epicyclic anomaly at epoch)
+        const A0 = data['a0']
 
-    // media motum argumentis (increment of anomaly) = medij argumentis * dierum
-    const Ad = (m * day) % 360
+        // medij argumentis (rate of motion in mean anomaly)
+        const m = data['m']
 
-    // argumento medio (mean epicyclic anomaly) = media motum argumentis + radix argumentis
-    const Am = (Ad + A0 + 360) % 360
+        // media motum argumentis (increment of anomaly) = medij argumentis * dierum
+        const Ad = (m * day) % 360
+
+        // argumento medio (mean epicyclic anomaly) = media motum argumentis + radix argumentis
+        Am = (Ad + A0 + 360) % 360
+    } else {
+        // media longitudo Solis (mean longitude of Sun) = radix motus + media motum
+        const LmS = media_longitudo(day)
+
+        // argumento medio (mean epicyclic anomaly) = media longitudo Solis + media longitudo
+        Am = (LmS - Lm + 360) % 360
+    }
 
     // equationem hanc eandem centri equatam (equation of centre) = Et(centro medio)
     const Et = interpolate(data['et_k'], k)
@@ -106,7 +120,7 @@ export function proxima (data: any, day: number, precession: number, accuracy: n
     const c_2 = c6 + c_1
 
     // verum argumentum (equation of anomaly) = (equatum argumentum > 180 ? + : - ) equatio argumentis secundo examenata
-    const Th = A < 180 ? c_2 : -c_2
+    const Th = A <= 180 ? c_2 : -c_2
 
     // verum motum (true ecliptic longitude) = augi + equatum centrum + verum argumentum
     const L = (La + k0 + Th + 360) % 360

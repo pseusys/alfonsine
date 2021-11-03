@@ -1,13 +1,14 @@
 import { Model } from "./types";
 import { interpolate } from "./utils";
-import { build_model, proxima } from "./generics";
+
+import { build_model, planeta } from "./generics";
 
 import * as data from "../data/venus.json";
 
 
 export function venus (day: number, precession: number , accuracy: number): Model {
     // equatum argumentum (true epicyclic anomaly), verum motum (true ecliptic longitude)
-    const { equatum_centrum, equatum_argumentum, verum_motum } = proxima(data, day, precession, accuracy)
+    const { equatum_centrum, equatum_argumentum, verum_motum } = planeta(data, day, precession, accuracy, true)
 
     // Latitude calculation:
 

@@ -1,10 +1,14 @@
 import { expect } from "chai"
 
-import { build_model, day_equation, proxima } from "../code/generics";
+import { Zodiac } from "../code/types";
+
+import { build_model, day_equation, planeta } from "../code/generics";
 
 import * as mercury_data from "../data/mercury.json"
 import * as venus_data from "../data/venus.json"
-import {Zodiac} from "../code/types";
+import * as mars_data from "../data/mars.json"
+import * as jupiter_data from "../data/jupiter.json"
+import * as saturn_data from "../data/saturn.json"
 
 
 describe("Generics test", () => {
@@ -74,7 +78,7 @@ describe("Generics test", () => {
         });
     });
 
-    describe("Should calculate longitude for Mercury and Venus correctly", () => {
+    describe("Should calculate longitude for planets correctly", () => {
         const d = 537698.102777777777778
         const p = 19.37979742363
         const a = 10
@@ -84,7 +88,7 @@ describe("Generics test", () => {
             const equatum_argumentum = 115.7846251945
             const verum_motum = 359.9835552128
 
-            const res = proxima(mercury_data, d, p, a);
+            const res = planeta(mercury_data, d, p, a, true);
 
             it(`True eccentric anomaly should be equal to ${equatum_centrum}`, () => {
                 expect(res.equatum_centrum).to.be.approximately(equatum_centrum, delta)
@@ -102,7 +106,61 @@ describe("Generics test", () => {
             const equatum_argumentum = 66.66542353150
             const verum_motum = 7.9350158725676
 
-            const res = proxima(venus_data, d, p, a);
+            const res = planeta(venus_data, d, p, a, true);
+
+            it(`True eccentric anomaly should be equal to ${equatum_centrum}`, () => {
+                expect(res.equatum_centrum).to.be.approximately(equatum_centrum, delta)
+            });
+            it(`True epicyclic anomaly should be equal to ${equatum_argumentum}`, () => {
+                expect(res.equatum_argumentum).to.be.approximately(equatum_argumentum, delta)
+            });
+            it(`True ecliptic longitude should be equal to ${verum_motum}`, () => {
+                expect(res.verum_motum).to.be.approximately(verum_motum, delta)
+            });
+        });
+
+        describe("Should calculate longitude of Mars correctly", () => {
+            const equatum_centrum = 176.5294262046
+            const equatum_argumentum = 27.4356040820
+            const verum_motum = 322.66828169339
+
+            const res = planeta(mars_data, d, p, a, false);
+
+            it(`True eccentric anomaly should be equal to ${equatum_centrum}`, () => {
+                expect(res.equatum_centrum).to.be.approximately(equatum_centrum, delta)
+            });
+            it(`True epicyclic anomaly should be equal to ${equatum_argumentum}`, () => {
+                expect(res.equatum_argumentum).to.be.approximately(equatum_argumentum, delta)
+            });
+            it(`True ecliptic longitude should be equal to ${verum_motum}`, () => {
+                expect(res.verum_motum).to.be.approximately(verum_motum, delta)
+            });
+        });
+
+        describe("Should calculate longitude of Jupiter correctly", () => {
+            const equatum_centrum = 59.6107533547000000
+            const equatum_argumentum = 105.9412213764820000
+            const verum_motum = 243.3800800092670000
+
+            const res = planeta(jupiter_data, d, p, a, false);
+
+            it(`True eccentric anomaly should be equal to ${equatum_centrum}`, () => {
+                expect(res.equatum_centrum).to.be.approximately(equatum_centrum, delta)
+            });
+            it(`True epicyclic anomaly should be equal to ${equatum_argumentum}`, () => {
+                expect(res.equatum_argumentum).to.be.approximately(equatum_argumentum, delta)
+            });
+            it(`True ecliptic longitude should be equal to ${verum_motum}`, () => {
+                expect(res.verum_motum).to.be.approximately(verum_motum, delta)
+            });
+        });
+
+        describe("Should calculate longitude of Saturn correctly", () => {
+            const equatum_centrum = 193.9129729071000000
+            const equatum_argumentum = 251.8606684906
+            const verum_motum = 80.1970554855165000
+
+            const res = planeta(saturn_data, d, p, a, false);
 
             it(`True eccentric anomaly should be equal to ${equatum_centrum}`, () => {
                 expect(res.equatum_centrum).to.be.approximately(equatum_centrum, delta)

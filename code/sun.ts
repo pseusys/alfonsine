@@ -1,8 +1,9 @@
 import { Model } from "./types";
 import { acc, interpolate } from "./utils";
 
-import * as data from "../data/sun.json"
 import { build_model } from "./generics";
+
+import * as data from "../data/sun.json"
 
 
 /**

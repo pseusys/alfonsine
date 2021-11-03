@@ -3,7 +3,7 @@ import { expect } from "chai"
 import { Zodiac } from "../code/types";
 import { interpolate } from "../code/utils";
 
-import { proxima } from "../code/generics";
+import { planeta } from "../code/generics";
 import { venus } from "../code/venus";
 
 import * as data from "../data/venus.json"
@@ -16,7 +16,7 @@ describe("Venus test", () => {
 
     const delta = 0.00000000009
 
-    const { equatum_centrum, equatum_argumentum } = proxima(data, d, p, a)
+    const { equatum_centrum, equatum_argumentum } = planeta(data, d, p, a, true)
 
     const constrained_center_0 = 41.6318940722
     describe("Should calculate constrained center 0 correctly", () => {

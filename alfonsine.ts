@@ -6,6 +6,9 @@ import { moon } from "./code/moon"
 import { sun } from "./code/sun"
 import { mercury } from "./code/mercury";
 import { venus } from "./code/venus";
+import { mars } from "./code/mars";
+import { jupiter } from "./code/jupiter";
+import { saturn } from "./code/saturn";
 
 
 function alfonsine () {
@@ -23,12 +26,9 @@ function alfonsine () {
     const MOON = moon(d, accuracy)
     const MERCURY = mercury(d, p, accuracy)
     const VENUS = venus(d, p, accuracy)
-    console.log(VENUS)
+    const MARS = mars(d, p, accuracy)
+    const JUPITER = jupiter(d, p, accuracy)
+    const SATURN = saturn(d, p, accuracy)
 }
 
 alfonsine();
-
-/*
-const arr = ""
-console.log(arr.split('\n').map((val: string) => { return val.split('\t')[2].replace(',', '.') }).reduce((prev: string, curr: string) => { return `${prev}, ${curr}` }, ""))
-*/
