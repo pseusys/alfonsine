@@ -1,6 +1,6 @@
 <!-- Alfonsine.wsf -->
 <job id="Alfonsine">
-  <script language="JScript" src="alfonsine.ts"/>
+  <script language="JScript" src="../alfonsine.ts"/>
   <script language="JScript">
     WScript.Echo(alfonsine.alfonsine());
   </script>

@@ -1,7 +1,7 @@
 import { Precession } from "./types";
 import { acc, interpolate } from "./utils";
 
-import * as data from "../data/sphere.json"
+import data from "../data/sphere.json"
 
 
 /**

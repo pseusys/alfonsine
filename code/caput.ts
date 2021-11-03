@@ -1,4 +1,4 @@
-import * as data from "../data/caput.json"
+import data from "../data/caput.json"
 
 
 export function media_longitudo (day: number): number {

@@ -3,7 +3,7 @@ import { interpolate } from "./utils";
 
 import { build_model, planeta } from "./generics";
 
-import * as data from "../data/mars.json";
+import data from "../data/mars.json";
 
 
 export function mars (day: number, precession: number , accuracy: number): Model {

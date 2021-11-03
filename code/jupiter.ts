@@ -3,7 +3,7 @@ import { interpolate } from "./utils";
 
 import { build_model, planeta } from "./generics";
 
-import * as data from "../data/jupiter.json";
+import data from "../data/jupiter.json";
 
 
 export function jupiter (day: number, precession: number , accuracy: number): Model {

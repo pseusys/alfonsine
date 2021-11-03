@@ -3,7 +3,7 @@ import { acc, interpolate } from "./utils";
 
 import { build_model } from "./generics";
 
-import * as data from "../data/sun.json"
+import data from "../data/sun.json"
 
 
 /**

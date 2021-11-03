@@ -3,7 +3,7 @@ import { interpolate } from "./utils";
 
 import { build_model, planeta } from "./generics";
 
-import * as data from "../data/mercury.json"
+import data from "../data/mercury.json"
 
 
 /**

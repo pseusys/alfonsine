@@ -14,8 +14,7 @@ export const Zodiac = {
     get AQUARIUS(): Zodiac { return "AQUARIUS"; },
     get PISCES(): Zodiac { return "PISCES"; },
 
-    find (n: number): Zodiac { return zodiacs[n] as Zodiac },
-    get (z: Zodiac): number { return zodiacs.findIndex((s: string) => { return s == z }) }
+    find (n: number): Zodiac { return zodiacs[n] as Zodiac }
 }
 
 
@@ -30,14 +29,6 @@ export enum Precession {
 export interface Radial {
     degrees: number
     minutes: number
-}
-
-export interface Time {
-    year: number
-    month: number
-    date: number
-    hour: number
-    minute: number
 }
 
 export interface Difference {

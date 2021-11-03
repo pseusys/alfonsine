@@ -31,5 +31,5 @@ Private Sub RunScript(command As String)
 End Sub
 
 Sub Alfonsine()
-    RunScript "cscript example.js"
+    RunScript "cscript alfonsine.wsf"
 End Sub

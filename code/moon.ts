@@ -5,7 +5,7 @@ import { build_model, day_equation } from "./generics";
 import { media_longitudo as sun_longitudo } from "./sun";
 import { media_longitudo as caput_longitudo } from "./caput";
 
-import * as data from "../data/moon.json"
+import data from "../data/moon.json"
 
 
 /**

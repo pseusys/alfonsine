@@ -1,18 +1,18 @@
-import { Epoch, Time, Difference, Precession } from "./code/types"
-import { dierum } from "./code/utils"
+import { Epoch, Difference, Precession } from "../code/types"
+import { dierum } from "../code/utils"
 
-import { precession_model } from "./code/sphere"
-import { moon } from "./code/moon"
-import { sun } from "./code/sun"
-import { mercury } from "./code/mercury";
-import { venus } from "./code/venus";
-import { mars } from "./code/mars";
-import { jupiter } from "./code/jupiter";
-import { saturn } from "./code/saturn";
+import { precession_model } from "../code/sphere"
+import { moon } from "../code/moon"
+import { sun } from "../code/sun"
+import { mercury } from "../code/mercury";
+import { venus } from "../code/venus";
+import { mars } from "../code/mars";
+import { jupiter } from "../code/jupiter";
+import { saturn } from "../code/saturn";
 
 
 function alfonsine () {
-    const date: Time = { year: 1473, month: 2, date: 19, hour: 4, minute: 48 }
+    const date: Date = new Date(1473, 2, 19, 4, 48)
     const era: Epoch = Epoch.CHRIST
     const diff: Difference = { hours: 2, minutes: 20, east: true }
     const accuracy = 5

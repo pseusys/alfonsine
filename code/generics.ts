@@ -3,7 +3,7 @@ import { acc, interpolate } from "./utils";
 
 import { media_longitudo } from "./sun";
 
-import * as data from "../data/generics.json"
+import data from "../data/generics.json"
 
 
 export function day_equation (day: number, accuracy: number): number {
