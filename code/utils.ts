@@ -3,7 +3,7 @@ import { Difference, Epoch } from "./types";
 
 export function interpolate (array: Array<number>, x: number): number {
     const c = Math.floor(x)
-    const delta = array[c + 1] - array[c]
+    const delta = array[c == array.length - 1 ? 0 : c + 1] - array[c]
     return array[c] + (x - c) * delta
 }
 
