@@ -4,6 +4,8 @@ import * as webpack from 'webpack';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
+import { Epoch, Precession } from "./code/types";
+
 
 const config: webpack.Configuration = {
     mode: 'production',
@@ -37,7 +39,15 @@ const config: webpack.Configuration = {
             },
             {
                 test: /\.pug$/,
-                use: ['html-loader', 'pug-html-loader'],
+                use: ['html-loader', {
+                    loader: 'pug-html-loader',
+                    options: {
+                        data: {
+                            epochs: Epoch,
+                            precessions: Precession
+                        }
+                    },
+                }],
                 exclude: /(node_modules|bower_components)/
             }
         ]

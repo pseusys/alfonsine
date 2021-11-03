@@ -23,65 +23,27 @@ const epoch = document.getElementById("epoch") as HTMLInputElement
 const prec = document.getElementById("prec") as HTMLInputElement
 
 
-type Input = {
-    date_time: Date,
-    diff: Date,
-    east: boolean,
-    acc: number,
-    epoch: string,
-    prec: string
-}
-
-function display (input: Input) {
-    if (!form.checkValidity()) return
-
-    let era, prec = null
-    switch (input.epoch) {
-        case "ALFONSO":
-            era = Epoch.ALFONSO
-            break
-        case "CHRIST":
-            era = Epoch.CHRIST
-            break
-        case "NABONASSAR":
-            era = Epoch.NABONASSAR
-            break
-    }
-    switch (input.prec) {
-        case "PTOLEMY":
-            prec = Precession.PTOLEMY
-            break
-        case "TREPIDATION":
-            prec = Precession.TREPIDATION
-            break
-        case "TRUE":
-            prec = Precession.TRUE
-            break
+function display (date_time: Date, diff: Date, east: boolean, acc: boolean, epoch: number, prec: string) {
+    if (!form.checkValidity()) {
+        form.reportValidity()
+        return
     }
 
-    const diff: Difference = { hours: input.diff.getHours(), minutes: input.diff.getMinutes(), east: input.east }
-    const acc = input.acc
-
-    if (acc < 1 || acc > 10) alert("Warning! Maximum accuracy is 10, you are about to get unexpectedly inaccurate results!")
-
-    console.log(input.date_time, prec, diff, era, acc)
-
-    const days = dierum(input.date_time, diff, era)
-    const precession = precession_model(prec, days, acc)
-
-    console.log(days, precession, acc)
+    const accuracy = acc ? 10 : 0
+    const difference: Difference = { hours: diff.getHours(), minutes: diff.getMinutes(), east: east }
+    const days = dierum(date_time, difference, Epoch.find(epoch))
+    const precession = precession_model(Precession[prec], days, accuracy)
 
     const bodies = {
-        sun: sun(days, precession, acc),
-        moon: moon(days, acc),
-        mercury: mercury(days, precession, acc),
-        venus: venus(days, precession, acc),
-        mars: mars(days, precession, acc),
-        jupiter: jupiter(days, precession, acc),
-        saturn: saturn(days, precession, acc)
+        sun: sun(days, precession, accuracy),
+        moon: moon(days, accuracy),
+        mercury: mercury(days, precession, accuracy),
+        venus: venus(days, precession, accuracy),
+        mars: mars(days, precession, accuracy),
+        jupiter: jupiter(days, precession, accuracy),
+        saturn: saturn(days, precession, accuracy)
     }
     for (let body in bodies) {
-        console.log(bodies[body])
         document.getElementById(`astronomic_degrees_${body}`).textContent = bodies[body].astronomic.degrees
         document.getElementById(`astronomic_minutes_${body}`).textContent = bodies[body].astronomic.minutes
         document.getElementById(`astrologic_degrees_${body}`).textContent = bodies[body].astrologic.degrees
@@ -94,11 +56,7 @@ function display (input: Input) {
 }
 
 
-input.onclick = () => display({
-    date_time: new Date(date.value),
-    diff: new Date(Number(diff.value.split(':')[0]), Number(diff.value.split(':')[1])),
-    east: east.checked,
-    acc: Number(acc.value),
-    epoch: epoch.value,
-    prec: prec.value,
-});
+input.onclick = () => {
+    const split = diff.value.split(':')
+    display(new Date(date.value), new Date(Number(split[0]), Number(split[1])), east.checked, acc.checked, Number(epoch.value), prec.value)
+};

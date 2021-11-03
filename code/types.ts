@@ -14,17 +14,30 @@ export const Zodiac = {
     get AQUARIUS(): Zodiac { return "AQUARIUS"; },
     get PISCES(): Zodiac { return "PISCES"; },
 
-    find (n: number): Zodiac { return zodiacs[n] as Zodiac }
+    find (n: number): Zodiac { return Zodiac[zodiacs[n]] }
 }
 
 
-export enum Epoch {
-    ALFONSO = 2178503, CHRIST = 1721424, NABONASSAR = 1448638
+export type Epoch = 2178503 | 1721424 | 1448638
+const epochs = { 2178503: "ALFONSO", 1721424: "CHRIST", 1448638: "NABONASSAR" }
+export const Epoch = {
+    get ALFONSO(): Epoch { return 2178503; },
+    get CHRIST(): Epoch { return 1721424; },
+    get NABONASSAR(): Epoch { return 1448638; },
+
+    find (n: number): Epoch { return Epoch[epochs[n]] }
 }
 
-export enum Precession {
-    PTOLEMY, TREPIDATION, TRUE
+export type Precession = "PTOLEMY" | "TREPIDATION" | "TRUE"
+const precessions = ["PTOLEMY", "TREPIDATION", "TRUE"]
+export const Precession = {
+    get PTOLEMY(): Precession { return "PTOLEMY"; },
+    get TREPIDATION(): Precession { return "TREPIDATION"; },
+    get TRUE(): Precession { return "TRUE"; },
+
+    find (n: number): Precession { return Precession[precessions[n]] }
 }
+
 
 export interface Radial {
     degrees: number

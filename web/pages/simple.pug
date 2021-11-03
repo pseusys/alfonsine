@@ -1,22 +1,12 @@
 - parameters = [ "astronomic_degrees", "astronomic_minutes", "astrologic_degrees", "astrologic_minutes", "sign", "latitude_degrees", "latitude_minutes", "n_s" ]
 mixin row(name)
     tr
-        td
+        th
             .in=name
         each param in parameters
             td
                 .in(id=param+"_"+name)
 
-
-datalist#epochs
-    option(value="ALFONSO")
-    option(value="CHRIST")
-    option(value="NABONASSAR")
-
-datalist#precessions
-    option(value="PTOLEMY")
-    option(value="TREPIDATION")
-    option(value="TRUE")
 
 - bodies = [ "sun", "moon", "mercury", "venus", "mars", "jupiter", "saturn" ]
 doctype html
@@ -38,7 +28,7 @@ html(lang="en")
                     th
                         .in Eastern than Toledo?
                     th
-                        .in Accuracy
+                        .in Floating point accuracy
                     th
                         .in Epoch
                     th
@@ -51,11 +41,17 @@ html(lang="en")
                     td
                         input#east(type="checkbox")
                     td
-                        input#acc(type="number" min="1" max="10" required=true)
+                        input#acc(type="checkbox")
                     td
-                        input#epoch(list="epochs" required=true)
+                        select#epoch(required=true)
+                            each index, epoch in epochs
+                                unless epoch === "find"
+                                    option(value=index)=epoch
                     td
-                        input#prec(list="precessions" required=true)
+                        select#prec(required=true)
+                            each index, precession in precessions
+                                unless precession === "find"
+                                    option(value=index)=precession
             button#calc(type="button") Make calculations!
 
         table
