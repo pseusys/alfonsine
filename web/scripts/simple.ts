@@ -51,7 +51,7 @@ function display (date_time: Date, diff_h: number, diff_m: number, east: boolean
         document.getElementById(`sign_${body}`).textContent = bodies[body].sign
         document.getElementById(`latitude_degrees_${body}`).textContent = bodies[body].latitude.degrees
         document.getElementById(`latitude_minutes_${body}`).textContent = bodies[body].latitude.minutes
-        document.getElementById(`n_s_${body}`).textContent = bodies[body].north ? 'N' : 'S'
+        document.getElementById(`n_s_${body}`).textContent = bodies[body].north != null ? (bodies[body].north ? 'N' : 'S') : ''
     }
 }
 
