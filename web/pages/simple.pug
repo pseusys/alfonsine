@@ -2,7 +2,7 @@
 mixin row(name)
     tr
         th
-            .in=name
+            .in=`${name[0].toUpperCase()}${name.slice(1)}`
         each param in parameters
             td
                 .in(id=param+"_"+name)
