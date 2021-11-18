@@ -62,24 +62,10 @@ html(lang="en")
                     .in Longitude
                 th(colspan="3")
                     .in Latitude
+            - rows = [ "", "deg", "min", "sign", "deg", "min", "deg", "min", "N/S" ]
             tr
-                th
-                    .in
-                th
-                    .in deg
-                th
-                    .in min
-                th
-                    .in sign
-                th
-                    .in deg
-                th
-                    .in min
-                th
-                    .in deg
-                th
-                    .in min
-                th
-                    .in N/S
+                each row in rows
+                    th
+                        .in=row
             for body in bodies
                 +row(body)
