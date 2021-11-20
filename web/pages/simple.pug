@@ -51,7 +51,7 @@ html(lang="en")
                         select#prec(required=true)
                             each index, precession in precessions
                                 unless precession === "find"
-                                    option(value=index)=precession
+                                    option(value=index selected=precession === "TREPIDATION")=precession
             button#calc(type="button") Make calculations!
 
         table
