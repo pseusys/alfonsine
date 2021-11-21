@@ -3,7 +3,7 @@ _Needs Node.JS environment to run!_
 
 Available scripts:
  * **run** - runs console implementation  
-   _NB! accepts command line argument - an escaped JSON string of input data (see ./schemas/input.schema.json)_
+   _NB! accepts command line argument - an escaped JSON string of input data (see [./schemas/input.schema.json](https://github.com/pseusys/alfonsine/blob/master/schemas/input.schema.json))_
  * **build** - generates website source code in ./build folder
  * **dev-build** - same as build, but in webpack _development_ mode
  * **test** - run mocha tests for all algorithm scripts
