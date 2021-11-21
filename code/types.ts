@@ -19,23 +19,17 @@ export const Zodiac = {
 
 
 export type Epoch = 2178503 | 1721424 | 1448638
-const epochs = { 2178503: "ALFONSO", 1721424: "CHRIST", 1448638: "NABONASSAR" }
 export const Epoch = {
     get ALFONSO(): Epoch { return 2178503; },
     get CHRIST(): Epoch { return 1721424; },
-    get NABONASSAR(): Epoch { return 1448638; },
-
-    find (n: number): Epoch { return Epoch[epochs[n]] }
+    get NABONASSAR(): Epoch { return 1448638; }
 }
 
 export type Precession = "PTOLEMY" | "TREPIDATION" | "TRUE"
-const precessions = ["PTOLEMY", "TREPIDATION", "TRUE"]
 export const Precession = {
     get PTOLEMY(): Precession { return "PTOLEMY"; },
     get TREPIDATION(): Precession { return "TREPIDATION"; },
-    get TRUE(): Precession { return "TRUE"; },
-
-    find (n: number): Precession { return Precession[precessions[n]] }
+    get TRUE(): Precession { return "TRUE"; }
 }
 
 
@@ -55,5 +49,5 @@ export interface Model {
     astrologic: Radial
     sign: Zodiac
     latitude: Radial
-    north: boolean
+    north: boolean | undefined
 }

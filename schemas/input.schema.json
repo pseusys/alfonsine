@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Schema defining JSON representation of input data for Alfonsine algorithm",
+  "description": "A data string, accepted by 'npm run run' command",
+
+  "type": "object",
+  "properties": {
+    "date_time": { "type": "integer" },
+    "diff_hours": { "type": "integer", "minimum": 0, "maximum": 23 },
+    "diff_minutes": { "type": "integer", "minimum": 0, "maximum": 59 },
+    "east": { "type": "boolean" },
+    "accuracy": { "type": "integer", "minimum": 0, "maximum": 10 },
+    "epoch": { "enum": [ "ALFONSO", "CHRIST", "NABONASSAR" ] },
+    "precession": { "enum": [ "PTOLEMY", "TREPIDATION", "TRUE" ] }
+  },
+  "additionalProperties": false,
+  "required": [ "date_time", "diff_hours", "diff_minutes", "east", "accuracy", "epoch", "precession" ]
+}

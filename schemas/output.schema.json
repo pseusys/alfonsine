@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Schema defining JSON representation of output data of Alfonsine algorithm",
+  "description": "A data string, returned by 'npm run run' command (with indentation)",
+
+  "type": "object",
+  "properties": {
+    "sun": { "$ref": "#/$defs/model" },
+    "moon": { "$ref": "#/$defs/model" },
+    "mercury": { "$ref": "#/$defs/model" },
+    "venus": { "$ref": "#/$defs/model" },
+    "mars": { "$ref": "#/$defs/model" },
+    "jupiter": { "$ref": "#/$defs/model" },
+    "saturn": { "$ref": "#/$defs/model" }
+  },
+  "additionalProperties": false,
+  "required": [ "sun", "moon", "mercury", "venus", "mars", "jupiter", "saturn" ],
+
+  "$defs": {
+    "radial": {
+      "description": "Radial coordinates of object (its degrees and minutes)",
+      "type": "object",
+      "properties": {
+        "degrees": { "type": "integer", "minimum": 0, "maximum": 359 },
+        "minutes": { "type": "integer", "minimum": 0, "maximum": 59 }
+      },
+      "additionalProperties": false,
+      "required": [ "degrees", "minutes" ]
+    },
+
+    "model": {
+      "description": "A result data model for an object of Alfonsine algorithm (i.e. Sun, Moon, planets)",
+      "type": "object",
+      "properties": {
+        "astronomic": { "$ref": "#/$defs/radial" },
+        "astrologic": { "$ref": "#/$defs/radial" },
+        "sign": { "enum": [ "ARIES", "TAURUS", "GEMINI", "CANCER", "LEO", "VIRGO", "LIBRA", "SCORPIUS", "SAGITTARIUS", "CAPRICORNUS", "AQUARIUS", "PISCES" ] },
+        "latitude": { "$ref": "#/$defs/radial" },
+        "north": { "type": [ "boolean", "null" ] }
+      },
+      "additionalProperties": false,
+      "required": [ "astronomic", "astrologic", "sign", "latitude", "north" ]
+    }
+  }
+}

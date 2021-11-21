@@ -37,8 +37,7 @@ html(lang="en")
                     td
                         select#epoch(required=true)
                             each index, epoch in epochs
-                                unless epoch === "find"
-                                    option(value=index selected=epoch === "CHRIST")=epoch
+                                option(value=epoch selected=epoch === "CHRIST")=epoch
                     td
                         input#date(type="datetime-local" required=true)
                     td
@@ -50,8 +49,7 @@ html(lang="en")
                     td
                         select#prec(required=true)
                             each index, precession in precessions
-                                unless precession === "find"
-                                    option(value=index selected=precession === "TREPIDATION")=precession
+                                option(value=precession selected=precession === "TREPIDATION")=precession
             button#calc(type="button") Make calculations!
 
         table
