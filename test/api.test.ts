@@ -7,7 +7,7 @@ import { alfonsine, Input, Output } from "../code/api";
 
 describe("API test", () => {
     const input: Input = {
-        date_time: -15679518137,
+        date_time: -15679509120,
         diff_hours: 0,
         diff_minutes: 0,
         east: true,
