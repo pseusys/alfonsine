@@ -130,5 +130,3 @@ $ npm run run "{\"date_time\": -15679518137,\"diff_hours\": 0,\"diff_minutes\": 
 
 Further research link:  
 [Office Scripts (for office 365 only), in .TS](https://github.com/OfficeDev/office-scripts-docs/blob/master/docs/tutorials/excel-power-automate-trigger.md)
-
-[]: https://pseusys.github.io/alfonsine/simple.html
